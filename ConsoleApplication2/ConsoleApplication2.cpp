@@ -10,6 +10,11 @@
 
 #include "rtweekend.h"
 
+#include <iostream>
+#include <fstream>
+
+#include <string>
+#include <cstdlib>
 bool hit_sphere(const point3& center, double radius, const ray& r) {
     vec3 oc = r.origin() - center;
     auto a = dot(r.direction(), r.direction());
@@ -61,8 +66,15 @@ int main()
 {
     //Image
     const auto aspect_ratio = 16.0 / 9.0;
-    const int image_width = 400;
+    const int image_width = 1200;
     const int image_height = static_cast<int>(image_width / aspect_ratio);
+    std::string oldName, newName, address, filename;
+    address = "D:\\tsinghua_me\\raytracing in one week\\program\\ConsoleApplication2\\ConsoleApplication2\\";
+	filename = "image_tot";
+    ofstream outfile;
+    oldName = address + filename + ".txt";
+	newName = address + filename + ".ppm";
+    outfile.open(oldName);
 
     //wolrd
     hittable_list world;
@@ -86,8 +98,9 @@ int main()
 
   
 
-    std::cout << "P3\n" << image_width << " " << image_height << "\n255\n";
+    outfile << "P3\n" << image_width << " " << image_height << "\n255\n";
 
+    
     for (int j = image_height - 1; j >= 0; j--) {
         std::cerr << "\rScanlines remaining: " << j << " " << std::flush;
         for (int i = 0; i < image_width; ++i) {
@@ -97,12 +110,29 @@ int main()
             ray r(origin, lower_left_corner + u * horizontal + v * vertical - origin);
             color pixel_color = ray_color(r, world);
 
-            write_color(std::cout, pixel_color);
+            write_color(outfile, pixel_color);
 
 
         }
 
     }
+
+    outfile.close();
+    
+    
+
+    //change the txt to ppm file
+	if (!rename(oldName.c_str(), newName.c_str()))
+	{
+		std::cerr << "\nrename success "<< std::endl;
+	}
+	else
+	{
+		std::cerr << "\nrename error "<< std::endl;
+	}
+ 
+
+
     std::cerr << "\nDone,\n";
 
 }
