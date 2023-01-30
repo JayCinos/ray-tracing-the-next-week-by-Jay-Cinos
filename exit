@@ -1,0 +1,47 @@
+[33mcommit a3b48e2cf44f224426d95918b448245ccbc0415b[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m
+Author: jay <jaypats@163.com>
+Date:   Sun Jan 29 15:41:10 2023 +0800
+
+    realize mental material
+
+[33mcommit 831fbe893c5718ad4d1d8942d786cf112bf20fa6[m[33m ([m[1;31morigin/master[m[33m)[m
+Author: jay <jaypats@163.com>
+Date:   Sat Jan 21 13:10:13 2023 +0800
+
+    runnable2
+
+[33mcommit 57bcf00b437414d5c0ff237b30ec2f33b78df149[m
+Author: jay <jaypats@163.com>
+Date:   Fri Jan 20 21:11:50 2023 +0800
+
+    success mulsample true
+
+[33mcommit f2c644f6e23abb48ad6f2279d4ab9fcec10ee8e7[m
+Author: jay <jaypats@163.com>
+Date:   Fri Jan 20 21:07:35 2023 +0800
+
+    success multi-sample
+
+[33mcommit f057b22569ccd8ffcea32412869932ca1f7152a3[m
+Author: jay <jaypats@163.com>
+Date:   Thu Jan 19 14:28:11 2023 +0800
+
+    now can output useable ppm file
+
+[33mcommit 9c586feca8d04b8acbcf98979652d2abf04007ed[m
+Author: jay <jaypats@163.com>
+Date:   Thu Jan 19 13:27:00 2023 +0800
+
+    runnable program
+
+[33mcommit f87725e1b49e7ae2a7a521c4d9c1314447fe62d8[m
+Author: 13650 <13650@JAY>
+Date:   Thu Jan 19 11:07:56 2023 +0800
+
+    添加项目文件。
+
+[33mcommit 3a188335c77b40c3a7145562ffd8dff8d6a5fdf1[m
+Author: 13650 <13650@JAY>
+Date:   Thu Jan 19 11:07:52 2023 +0800
+
+    添加 .gitignore 和 .gitattributes。

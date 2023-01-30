@@ -39,14 +39,36 @@ vec3 reflection(const ray& ray_in, const hit_record& rec) {
 
 class metal : public material {
 public:
-	metal(const color& a): albedo(a) {}
+	metal(const color& a,const double& f): albedo(a), fuzz(f) {}
 	virtual bool scatter(const ray& r_in, const hit_record& rec, color& attenuation, ray& scattered) const override {
 		auto scttered_direction = reflection(r_in, rec);
-		scattered = ray(rec.p, scttered_direction);
+		scattered = ray(rec.p, scttered_direction + fuzz*random_in_unit_sphere());
 		attenuation = albedo;
 		return dot(scttered_direction , rec.normal)> 0;
 	}
 public:
 	color albedo;
+	double fuzz;
+};
+
+class dieletric : public material {
+public:
+	dieletric(const color& a,const double& r): albedo(a), refraction_index(r) {}
+	virtual bool scatter(const ray& r_in, const hit_record& rec, color& attenuation, ray& scattered) const override {
+		
+		double refraction_ratio = rec.front_face ? ( b1.0 / refraction_index) : refraction_index;
+
+		vec3 unit_rayin = unit_vector(r_in.direction());
+		auto scttered_direction = refract(unit_rayin, rec.normal, refraction_ratio);
+		
+		scattered = ray(rec.p, scttered_direction);
+		// scattered = ray(rec.p, scttered_direction + fuzz*random_in_unit_sphere());
+		attenuation = albedo;
+		return true;
+	}
+public:
+	color albedo;
+	// double fuzz;
+	double refraction_index;
 };
 #endif
