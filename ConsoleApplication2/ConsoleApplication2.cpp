@@ -87,40 +87,33 @@ int main()
 
     std::string oldName, newName, address, filename;
     address = "D:\\tsinghua_me\\raytracing in one week\\program\\ConsoleApplication2\\ConsoleApplication2\\";
-	filename = "image_10_5";
+	filename = "image_11_1";
     ofstream outfile;
     oldName = address + filename + ".txt";
 	newName = address + filename + ".ppm";
     outfile.open(oldName);
 
     //wolrd
-    
-    auto material_ground = make_shared<lambertian>(color(0.8, 0.8, 0.0));
-    auto material_center = make_shared<lambertian>(color(0.1, 0.2, 0.5));
-    auto material_left = make_shared<dieletric>(color(0.8, 0.8, 0.8), 1.5);
-    auto material_right = make_shared<metal>(color(0.8, 0.6, 0.2),  1.0);
+    auto R = cos(pi/4);
+
+    // auto material_ground = make_shared<lambertian>(color(0.8, 0.8, 0.0));
+    // auto material_center = make_shared<lambertian>(color(0.1, 0.2, 0.5));
+    // auto material_left = make_shared<dieletric>(color(0.8, 0.8, 0.8), 1.5);
+    // auto material_right = make_shared<metal>(color(0.8, 0.6, 0.2),  1.0);
     
 
     
     hittable_list world;
     //world.add(make_shared<sphere>(point3(0, -100.5, 0), 100));
-    world.add(make_shared<sphere>(point3(0.0, -100.5, -1.0), 100.0, material_ground));
-    world.add(make_shared<sphere>(point3(0.0, 0.0, -1.0), 0.5, material_center));
-    world.add(make_shared<sphere>(point3(-1.0, 0.0, -1.0), -0.5, material_left));
-    world.add(make_shared<sphere>(point3(1.0, 0.0, -1.0), 0.5, material_right));
+    auto material_left  = make_shared<lambertian>(color(0,0,1));
+    auto material_right = make_shared<lambertian>(color(1,0,0));
+
+    world.add(make_shared<sphere>(point3(-R, 0, -1), R, material_left));
+    world.add(make_shared<sphere>(point3( R, 0, -1), R, material_right));
 
     //Camera
-
-    auto viewport_height = 2.0;
-    auto viewport_width = aspect_ratio * viewport_height;
-    auto focal_length = 1.0;
-
-    auto origin = point3(0, 0, 0);
-    auto horizontal = vec3(viewport_width, 0, 0);
-    auto vertical = vec3(0, viewport_height, 0);
-    auto lower_left_corner = origin - horizontal / 2 - vertical / 2 - vec3(0, 0, focal_length);
-
-    camera cam;
+    
+    camera cam(90.0, aspect_ratio);
 
     //Render
 
