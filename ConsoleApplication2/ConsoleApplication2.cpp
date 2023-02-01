@@ -87,7 +87,7 @@ int main()
 
     std::string oldName, newName, address, filename;
     address = "D:\\tsinghua_me\\raytracing in one week\\program\\ConsoleApplication2\\ConsoleApplication2\\";
-	filename = "image_11_2";
+	filename = "12_2";
     ofstream outfile;
     oldName = address + filename + ".txt";
 	newName = address + filename + ".ppm";
@@ -124,8 +124,14 @@ int main()
     //Camera
     
     // camera cam(90.0, aspect_ratio);
-    camera cam(point3(-2,2,1), point3(0,0,-1), vec3(0,1,0), 90, aspect_ratio);
+    // camera cam(point3(-2,2,1), point3(0,0,-1), vec3(0,1,0), 90, aspect_ratio);
+    point3 lookfrom(3,3,2);
+    point3 lookat(0,0,-1);
+    vec3 vup(0,1,0);
+    auto dist_to_focus = (lookfrom-lookat).length();
+    auto aperture = 2.0;
 
+    camera cam(lookfrom, lookat, vup, 20, aspect_ratio, aperture, dist_to_focus);
     //Render
 
   
