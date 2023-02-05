@@ -21,7 +21,7 @@ public:
 		if (scttered_direction.near_zero()) {
 			scttered_direction = rec.normal;
 		}
-		scattered = ray(rec.p, scttered_direction);
+		scattered = ray(rec.p, scttered_direction, r_in.time());
 		attenuation = albedo;
 		return true;
 	}
@@ -42,7 +42,7 @@ public:
 	metal(const color& a,const double& f): albedo(a), fuzz(f) {}
 	virtual bool scatter(const ray& r_in, const hit_record& rec, color& attenuation, ray& scattered) const override {
 		auto scttered_direction = reflection(r_in, rec);
-		scattered = ray(rec.p, scttered_direction + fuzz*random_in_unit_sphere());
+		scattered = ray(rec.p, scttered_direction + fuzz*random_in_unit_sphere(), r_in.time());
 		attenuation = albedo;
 		return dot(scttered_direction , rec.normal)> 0;
 	}
@@ -76,7 +76,7 @@ public:
 		}
 
 				
-		scattered = ray(rec.p, scttered_direction);
+		scattered = ray(rec.p, scttered_direction, r_in.time());
 		// scattered = ray(rec.p, scttered_direction + fuzz*random_in_unit_sphere());
 		attenuation = albedo;
 		return true;

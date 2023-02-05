@@ -18,6 +18,8 @@
 
 #include <string>
 #include <cstdlib>
+#include "moving_sphere.h"
+
 bool hit_sphere(const point3& center, double radius, const ray& r) {
     vec3 oc = r.origin() - center;
     auto a = dot(r.direction(), r.direction());
@@ -94,8 +96,10 @@ hittable_list random_scene() {
                     // diffuse
                     auto albedo = color::random() * color::random();
                     sphere_material = make_shared<lambertian>(albedo);
-                    world.add(make_shared<sphere>(center, 0.2, sphere_material));
-                } else if (choose_mat < 0.95) {
+                    auto center2 = center + vec3(0, random_double(0,.5), 0);
+                    world.add(make_shared<moving_sphere>(
+                        center, center2, 0.0, 1.0, 0.2, sphere_material));  } 
+                else if (choose_mat < 0.95) {
                     // metal
                     auto albedo = color::random(0.5, 1);
                     auto fuzz = random_double(0, 0.5);
@@ -125,15 +129,15 @@ hittable_list random_scene() {
 int main()
 {
     //Image
-    const auto aspect_ratio = 3.0 / 2.0;
-    const int image_width = 1200;
+    const auto aspect_ratio = 16.0 / 9.0;
+    const int image_width = 400;
     const int image_height = static_cast<int>(image_width / aspect_ratio);
     const int samples_per_pixel = 100;
     const int max_depth = 30;
 
     std::string oldName, newName, address, filename;
-    address = "D:\\tsinghua_me\\raytracing in one week\\program\\ConsoleApplication2\\ConsoleApplication2\\";
-	filename = "13_1";
+    address = "D:\\tsinghua_me\\ray tracing the next week\\raytracing-in-one-week-by-JAY-CINOS\\ConsoleApplication2\\";
+	filename = "2_1";
     ofstream outfile;
     oldName = address + filename + ".txt";
 	newName = address + filename + ".ppm";
@@ -178,7 +182,7 @@ int main()
     auto aperture = 0.1;
 
 
-    camera cam(lookfrom, lookat, vup, 20, aspect_ratio, aperture, dist_to_focus);
+    camera cam(lookfrom, lookat, vup, 20, aspect_ratio, aperture, dist_to_focus, 0.0, 1.0);
     //Render
 
   

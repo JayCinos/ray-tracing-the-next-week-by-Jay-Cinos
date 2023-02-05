@@ -10,7 +10,9 @@ public:
 			double fov, 
 			double aspect_ratio,
 			double aperture,
-			double focus_dist){
+			double focus_dist,
+			double _time0 = 0,
+            double _time1 = 0){
 		
 		auto theta = degrees_to_radians(fov);
 		auto h = tan(theta/2 );
@@ -27,13 +29,17 @@ public:
 		origin = pointfrom;
 		lower_left_cornor = origin - horizion / 2 - vertical / 2  -  focus_dist* w;
 		lens_radius = aperture / 2;
+		time0 = _time0;
+        time1 = _time1;
 	}
 	ray get_ray(double u_1, const double v_1) const{
 			auto rd =lens_radius * random_in_unit_disk();
 			auto offset = rd.x() * u + rd.y() * v;
 
 
-			return ray(origin + offset, lower_left_cornor + u_1 * horizion  + v_1 * vertical - origin- offset);
+			return ray(origin + offset, lower_left_cornor + u_1*horizion + v_1*vertical - origin - offset,
+                random_double(time0, time1)
+			);
 		}
 public:
 	point3 origin;
@@ -42,6 +48,7 @@ public:
 	vec3 u,v,w;
 	point3 lower_left_cornor;
 	double lens_radius;
+	double time0, time1;
 
 };
 
